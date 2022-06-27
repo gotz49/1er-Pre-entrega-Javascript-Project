@@ -64,21 +64,20 @@ if (compra.toLowerCase() == "si") { // si 'let compra = si' => pregunta filtro
           );
 
           const productosFiltrados = filtrarPrecio(precio);
-          // llamo funcion 'filtrarPrecio' y almaceno en una variable const
+               // llamo funcion 'filtrarPrecio' y almaceno en una variable const
 
           alert("Filtro precios mayores a USD" + precio + "\nContinue para ver los Productos");
+
           
-          // #######################################
-          // #### NO LOGRO QUE ENTRE EN EL WHILE ###
-          // #######################################
-          
-          let eleccionFiltrados = 0;
+          let eleccionFiltrados;
           
           while (eleccionFiltrados != 0) {
+
                eleccionFiltrados = prompt(`
                     ${VerFiltro(productosFiltrados)}
                     A continuación seleccione el producto por su ID
                `);
+               
 
                if (eleccionFiltrados == null) {
                     alert("Gracias por visitarnos, vuelva cuando quiera");
@@ -86,18 +85,14 @@ if (compra.toLowerCase() == "si") { // si 'let compra = si' => pregunta filtro
                }
 
                if (eleccionFiltrados == 0) {
-                    alert("Gracias por visitarnos, vuelva cuando quiera");
                     break;
                }
 
-               agregarProductosAlCarrito(parseInt(eleccionFiltrados));
-               console.log(sumarTotal());
+               agregarProductosAlCarrito(productosFiltrados, parseInt(eleccionFiltrados));
+               console.log(sumarTotal()); 
 
 
           }
-          // #######################################
-          // #######################################
-          // #######################################
           
           
           let eliminar = prompt(`
@@ -114,13 +109,13 @@ if (compra.toLowerCase() == "si") { // si 'let compra = si' => pregunta filtro
                La suma total del carrito es: USD ${sumarTotal(CARRITO)}
                `)
                     // FINAL COMPRANDO CON FILTRO ELIMINANDO PROD. DEL CARRITO
-          
+           
 
 
           } else {
 
                alert(`
-               La suma total del carrito es: USD${sumarTotal(CARRITO)};
+               La suma total del carrito es: USD${sumarTotal(CARRITO)}
                `)
                     // FINAL COMPRANDO CON FILTRO SIN ELIMINAR PROD. DEL CARRITO
 
@@ -156,7 +151,7 @@ if (compra.toLowerCase() == "si") { // si 'let compra = si' => pregunta filtro
                     break;
                }
 
-               agregarProductosAlCarrito(parseInt(eleccionProductos));
+               agregarProductosAlCarrito(PRODUCTOS, parseInt(eleccionProductos));
 
                console.log(sumarTotal()); // muestro el total de carrito al añadir productos.
           }
@@ -248,9 +243,9 @@ function VerFiltro(productosFiltrados) {
 
 
 // AGREGAR PRODUCTOS AL CARRITO
-function agregarProductosAlCarrito(id) {
+function agregarProductosAlCarrito(array,id) {
 
-     let producto = PRODUCTOS.find(producto => producto.id === id);
+     let producto = array.find(producto => producto.id === id);
 
      let productoEnCarrito = CARRITO.find(producto => producto.id === id);
 
